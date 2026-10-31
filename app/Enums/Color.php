@@ -18,6 +18,18 @@ enum Color: string
     case Multicolor = 'multicolor';
 
     /**
+     * Get every colour as value => label, for a select.
+     *
+     * @return array<string, string>
+     */
+    public static function options(): array
+    {
+        return collect(self::cases())
+            ->mapWithKeys(fn (self $color) => [$color->value => $color->label()])
+            ->all();
+    }
+
+    /**
      * Get the label shown to the user.
      */
     public function label(): string
@@ -55,7 +67,7 @@ enum Color: string
             self::Brown => 'bg-amber-100 text-amber-900 ring-amber-300 dark:bg-amber-950 dark:text-amber-200 dark:ring-amber-800',
             self::Pink => 'bg-pink-50 text-pink-800 ring-pink-200 dark:bg-pink-950 dark:text-pink-200 dark:ring-pink-800',
             self::Purple => 'bg-purple-50 text-purple-800 ring-purple-200 dark:bg-purple-950 dark:text-purple-200 dark:ring-purple-800',
-            self::Multicolor => 'bg-gradient-to-r from-red-50 via-yellow-50 to-blue-50 text-zinc-800 ring-zinc-300 dark:from-red-950 dark:via-yellow-950 dark:to-blue-950 dark:text-zinc-100 dark:ring-zinc-600',
+            self::Multicolor => 'bg-linear-to-r from-red-50 via-yellow-50 to-blue-50 text-zinc-800 ring-zinc-300 dark:from-red-950 dark:via-yellow-950 dark:to-blue-950 dark:text-zinc-100 dark:ring-zinc-600',
         };
     }
 
@@ -76,7 +88,7 @@ enum Color: string
             self::Brown => 'bg-amber-800',
             self::Pink => 'bg-pink-400',
             self::Purple => 'bg-purple-500',
-            self::Multicolor => 'bg-gradient-to-br from-red-500 via-yellow-400 to-blue-500',
+            self::Multicolor => 'bg-linear-to-br from-red-500 via-yellow-400 to-blue-500',
         };
     }
 }
